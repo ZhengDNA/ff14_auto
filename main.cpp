@@ -205,7 +205,7 @@ void ClickList(Note *list) {
             printf("µ¯×àÍ£Ö¹\n");
             return;
         }
-        if (p->num == INF){
+        if (p->num == INF) {
             Sleep(p->t);
             p = p->next;
             continue;
@@ -225,6 +225,9 @@ void LimitNote(Note *&list) {
     Note *p = list;
     while (p != NULL) {
         p->num -= out;
+        if (p->num < 0) {
+            p->num = INF;
+        }
         p = p->next;
     }
 }
