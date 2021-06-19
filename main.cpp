@@ -2,6 +2,7 @@
 #include<Windows.h>
 #include<math.h>
 #include<tchar.h>
+#include<time.h>
 
 //计算BPM要用到的值
 #define BPM 60000
@@ -196,6 +197,19 @@ void CreateList(FILE *fp, Note *&list) {
     fclose(fp);
 }
 
+// "醒着睡觉"
+void wakeSleep(long millisec) {
+    struct timeb start;
+    ftime(&start);
+    struct timeb end;
+    while (1) {
+        ftime(&end);
+        if (end.millitm + end.time * 1000 - start.time * 1000 - start.millitm > millisec) {
+            return;
+        }
+    }
+}
+
 //把链表转化成按键信号
 void ClickList(Note *list) {
     printf("开始弹奏\n");
@@ -211,9 +225,26 @@ void ClickList(Note *list) {
             continue;
         }
         keybd_event(f[p->num], 0, 0, 0);
-        Sleep(p->t - (p->t) / 4);
+        // 没有封装成函数，减少频繁开函数栈帧带来的性能损失。想要函数在上面封装好了 (实测封装成函数要多1ms)
+        struct timeb start;
+        struct timeb end;
+        ftime(&start);
+        while (1) {
+            ftime(&end);
+            if (end.millitm + end.time * 1000 - start.time * 1000 - start.millitm > p->t - (p->t) / 4) {
+                break;
+            }
+        }
+//        Sleep(p->t - (p->t) / 4);
         keybd_event(f[p->num], 0, 2, 0);
-        Sleep((p->t) / 4);
+        ftime(&start);
+        while (1) {
+            ftime(&end);
+            if (end.millitm + end.time * 1000 - start.time * 1000 - start.millitm > (p->t) / 4) {
+                break;
+            }
+        }
+//        Sleep((p->t) / 4);
         p = p->next;
     }
     printf("弹奏结束\n");
