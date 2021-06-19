@@ -3,4 +3,14 @@ project(ff14_auto)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(ff14_auto main.cpp)
+file(GLOB SourceFiles source/app.rc)
+
+add_executable(
+        ff14_auto
+        MACOSX_BUNDLE
+        main.cpp
+        ${SourceFiles}
+        ${HeaderFiles}
+        ${ResourceFiles}
+        ${UISrcs}
+)
