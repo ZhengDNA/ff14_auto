@@ -276,7 +276,7 @@ void DestroyList(Note *&list) {
 }
 
 int main() {
-    system("title ff14ÑÝ×àver1.3");
+    system("title ff14ÑÝ×àver1.5");
     system("mode con cols=70 lines=40");
     char a[100];
     FILE *fp;
