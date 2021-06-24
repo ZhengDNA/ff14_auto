@@ -7,7 +7,7 @@
 //计算BPM要用到的值
 #define BPM 60000
 //音符不可能达到的位置（初始化用）
-#define INF -1
+#define INF -100
 
 typedef struct NOTE {
     int num;    //音符按键的位置
@@ -219,8 +219,8 @@ void ClickList(Note *list) {
             printf("弹奏停止\n");
             return;
         }
-        if (p->num == INF) {
-            Sleep(p->t);
+        if (p->num < 0) {
+            wakeSleep(p->t);
             p = p->next;
             continue;
         }
