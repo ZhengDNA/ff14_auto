@@ -198,13 +198,13 @@ void CreateList(FILE *fp, Note *&list) {
 }
 
 // "醒着睡觉"
-void wakeSleep(long millisec) {
+void wakeSleep(long milliSec) {
     struct timeb start;
     ftime(&start);
     struct timeb end;
     while (1) {
         ftime(&end);
-        if (end.millitm + end.time * 1000 - start.time * 1000 - start.millitm > millisec) {
+        if (end.millitm + end.time * 1000 - start.time * 1000 - start.millitm > milliSec) {
             return;
         }
     }
@@ -212,6 +212,7 @@ void wakeSleep(long millisec) {
 
 //把链表转化成按键信号
 void ClickList(Note *list) {
+    Sleep(100);
     printf("开始弹奏\n");
     Note *p = list->next;
     while (p != NULL) {
