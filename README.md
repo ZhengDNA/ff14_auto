@@ -10,6 +10,8 @@
 
 1. ### <p id='preface'>前言</p>
 
+本项目已用 Spring 框架重构，[ff14_auto_spring](https://github.com/ChenzDNA/ff14_auto_spring) 加入了 Json 和 YAML 文件的支持，同时代码扩展性高。
+
 主程序是ff14_auto.exe，txt文件是曲谱文件，程序通过读取曲谱文件，根据曲谱文件里的内容建立链表，再模拟成键盘信号输出，就能实现游戏里自动弹琴。
 
 其实这个版本是修改了几次之后的版本。
